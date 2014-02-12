@@ -31,13 +31,15 @@ end
 class Company
   attr_reader :name
   attr_accessor :url, :jobpage
+  ALL=[]
   def initialize (url, jobpage)
     @name= url.text
     @url = url['href']
     @jobpage = jobpage['href']
+    ALL<<self
   end
 end
 
 scrapeJobs
-cleanCompanies
-@companyList.each {|company| puts "#{company.name} is hiring at #{company.jobpage}"}
+companyList
+Company::ALL.each {|company| puts "#{company.name} is hiring at #{company.jobpage}"}
