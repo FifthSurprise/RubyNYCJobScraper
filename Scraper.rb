@@ -4,7 +4,6 @@ require 'pry'
 
 @companyList = []
 
-
 def scrapeJobs
   page = Nokogiri::HTML(open("http://nytm.org/made-in-nyc/"))
   companiesData = page.css("article ol li")
@@ -13,7 +12,6 @@ def scrapeJobs
     if company.length >1
       @companyList.push(Company.new(company[0],company[1]))
     end
-    #binding.pry
   end
 end
 
@@ -31,28 +29,15 @@ def cleanCompanies
 end
 
 class Company
+  attr_reader :name
+  attr_accessor :url, :jobpage
   def initialize (url, jobpage)
     @name= url.text
     @url = url['href']
     @jobpage = jobpage['href']
   end
-
-  def name
-    @name
-  end
-
-  def url
-    @url
-  end
-
-  def jobpage
-    @jobpage
-  end
 end
 
 scrapeJobs
 cleanCompanies
-
-@companyList.each do |company|
-  puts "#{company.name} is hiring at #{company.jobpage}"
-end
+@companyList.each {|company| puts "#{company.name} is hiring at #{company.jobpage}"}
