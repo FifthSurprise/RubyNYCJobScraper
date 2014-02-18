@@ -1,0 +1,6 @@
+require 'sqlite3'
+require 'nokogiri'
+require 'open-uri'
+require 'timeout'
+require_relative '../lib/Company'
+require_relative '../lib/Scraper'
